@@ -1,7 +1,6 @@
 import { Fragment, useState } from 'react'
 import Palette from './Components/Palette'
 import seedColors from './seedColors';
-import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
