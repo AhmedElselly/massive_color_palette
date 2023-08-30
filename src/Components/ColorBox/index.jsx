@@ -10,8 +10,6 @@ const ColorBox = ({ name, background }) => {
 		}, 1500);
 	}, [copied]);
 
-	// console.log(copied)
-
 	const changeCopyState = () => {
 		setCopied(true)
 	}

@@ -33,9 +33,7 @@ const generatePalette = starterPalette => {
 		paletteName: starterPalette.paletteName,
 		id: starterPalette.id,
 		emoji: starterPalette.emoji,
-		colors: {
-
-		}
+		colors: {}
 	}
 
 	for (let level of levels) {
