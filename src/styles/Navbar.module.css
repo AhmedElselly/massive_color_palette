@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    height: 50px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    width: 500px;
+}
+
+.logo {
+    background-color: rgba(0, 0, 0, 0.2);
+    height: 100%;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    color: #fff;
+    cursor: pointer;
+}
+
+.slider {
+    width: 300px;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
