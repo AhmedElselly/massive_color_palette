@@ -3,13 +3,15 @@ import Palette from './Components/Palette'
 import seedColors from './seedColors';
 import { generatePalette } from './colorHelpers';
 import { Route, Routes } from 'react-router-dom';
+import PaletteList from './Components/PaletteList';
 
 function App() {
-  const findPalette = id => seedColors.find(palette => palette.id === id);
 
   return (
     <Routes>
-      <Route path='/' element={<Palette palette={generatePalette(seedColors[4])} />} />
+      <Route path='/' element={<PaletteList seedColors={seedColors} />} />
+      {/* <Route path='/palettes/:id' element={<Palette palette={generatePalette(seedColors[4])} />} /> */}
+      <Route path='/palettes/:id' element={<Palette />} />
     </Routes>
   )
 }

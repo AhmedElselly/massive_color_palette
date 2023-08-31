@@ -4,6 +4,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { FormControl, MenuItem, Select, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
+import { Link } from 'react-router-dom';
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -36,7 +37,7 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat }) => {
 	return (
 		<div className={styles.container}>
 			<div className={styles.left}>
-				<div className={styles.logo}>reactcolorpicker</div>
+				<Link to='/' className={styles.logo}>reactcolorpicker</Link>
 				<div className={styles.slider}>
 					<span className={styles.levelText}>Level:{newLevel}</span>
 					<Slider defaultValue={level} min={100} max={900} onChange={handleSliderChange} step={100} />
