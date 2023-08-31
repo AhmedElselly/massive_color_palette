@@ -1,0 +1,36 @@
+.root {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    height: 200px;
+}
+
+.colors {
+    background-color: #dae1e4;
+    height: 150px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #000;
+    position: relative;
+    margin-top: 10px;
+}
+
+.miniColor {
+    height: 25%;
+    width: 20%;
+    display: inline-block;
+    margin: 0 auto;
+    position: relative;
+    margin-bottom: -3.5px;
+
+}

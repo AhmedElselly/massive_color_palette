@@ -13,12 +13,15 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.6",
+    "@mui/styled-engine-sc": "^5.14.7",
+    "@mui/system": "^5.14.7",
     "chroma-js": "^2.4.2",
     "rc-slider": "^10.2.1",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0",
+    "styled-components": "^5.3.11",
     "util": "^0.12.5"
   },
   "devDependencies": {
