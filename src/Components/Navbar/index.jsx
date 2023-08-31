@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 import styles from '../../styles/Navbar.module.css';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, MenuItem, Select, Snackbar } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Navbar = ({ level, handleChangeLevel, handleSelectedFormat }) => {
 	const [newLevel, setNewLevel] = useState(level);
 	const [selected, setSelected] = useState('hex');
+	const [open, setOpen] = useState(false);
+
 	const handleSliderChange = val => {
 		setNewLevel(val)
 		handleChangeLevel(val);
@@ -15,7 +22,16 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat }) => {
 	const handleSelectChange = e => {
 		setSelected(e.target.value);
 		handleSelectedFormat(e.target.value);
+		setOpen(true)
 	}
+
+	const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
 	return (
 		<div className={styles.container}>
@@ -29,8 +45,8 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat }) => {
 			<div className={styles.right}>
 				<FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
 					<Select
-						labelId="demo-simple-select-standard-label"
-						id="demo-simple-select-standard"
+						labelId="format-label"
+						id="format"
 						value={selected}
 						onChange={handleSelectChange}
 					>
@@ -40,6 +56,11 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat }) => {
 					</Select>
 				</FormControl>
 			</div>
+			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Format changed
+        </Alert>
+      </Snackbar>
 		</div>
 	)
 }

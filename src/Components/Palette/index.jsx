@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, forwardRef, useState } from 'react';
 import styles from '../../styles/Palette.module.css';
 import ColorBox from '../ColorBox';
 import Navbar from '../Navbar';
@@ -17,7 +17,7 @@ const Palette = ({ palette }) => {
 
   const generateColorBoxes = () => palette.colors[level].map((color, i) => {
     return (
-      <ColorBox key={i} background={color[format]}  name={color.name} />
+      <ColorBox key={i} background={color[format]} name={color.name} />
     )
   })
   return (
@@ -25,6 +25,13 @@ const Palette = ({ palette }) => {
       <Navbar level={level} handleChangeLevel={handleSliderChange} handleSelectedFormat={handleSelectedFormat} />
       <div className={styles.paletteColors}>
         {generateColorBoxes()}
+      </div>
+      {/* FOOTER */}
+      <div className={styles.footerContainer}>
+        <div className={styles.footerWrapper}>
+          <span className={styles.paletteName}>{palette.paletteName}</span>
+          <span className={styles.emoji}>{palette.emoji}</span>
+        </div>
       </div>
     </div>
   )
