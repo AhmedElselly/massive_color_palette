@@ -1,0 +1,13 @@
+.footerContainer {
+    display: flex;
+    height: 5vh;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.footerWrapper {
+    display: flex;
+    gap: 10px;
+    margin-right: 20px;
+    font-weight: bold;
+}

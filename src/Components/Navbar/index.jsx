@@ -10,7 +10,7 @@ const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-const Navbar = ({ level, handleChangeLevel, handleSelectedFormat }) => {
+const Navbar = ({ level, handleChangeLevel, handleSelectedFormat, showLevel }) => {
 	const [newLevel, setNewLevel] = useState(level);
 	const [selected, setSelected] = useState('hex');
 	const [open, setOpen] = useState(false);
@@ -38,10 +38,10 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat }) => {
 		<div className={styles.container}>
 			<div className={styles.left}>
 				<Link to='/' className={styles.logo}>reactcolorpicker</Link>
-				<div className={styles.slider}>
+				{showLevel && <div className={styles.slider}>
 					<span className={styles.levelText}>Level:{newLevel}</span>
 					<Slider defaultValue={level} min={100} max={900} onChange={handleSliderChange} step={100} />
-				</div>
+				</div>}
 			</div>
 			<div className={styles.right}>
 				<FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>

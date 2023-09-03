@@ -6,7 +6,11 @@ import styles from '../../styles/PaletteList.module.css';
 const PaletteList = ({ seedColors }) => {
 	const displayPalettes = () => {
 		return seedColors?.map(palette => {
-			return <MiniPalette key={palette.id} {...palette} />
+			return (
+				<Link key={palette.id} to={`/palettes/${palette.id}`}>
+					<MiniPalette {...palette} />
+				</Link>
+			)
 		})
 	}
 	return (

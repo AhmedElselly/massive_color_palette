@@ -5,6 +5,7 @@ import Navbar from '../Navbar';
 import { useParams } from 'react-router-dom';
 import { generatePalette } from '../../colorHelpers';
 import seedColors from '../../seedColors';
+import Footer from '../Footer';
 
 const Palette = () => {
   const [level, setLevel] = useState(500);
@@ -24,22 +25,17 @@ const Palette = () => {
 
   const generateColorBoxes = () => palette?.colors[level]?.map((color, i) => {
     return (
-      <ColorBox key={i} background={color[format]} name={color.name} />
+      <ColorBox key={i} fullHeight={false} background={color[format]} name={color.name} paletteId={id} colorId={color.id} showMore={true} />
     )
   })
   return (
     <div className={styles.palette}>
-      <Navbar level={level} handleChangeLevel={handleSliderChange} handleSelectedFormat={handleSelectedFormat} />
+      <Navbar showLevel={true} level={level} handleChangeLevel={handleSliderChange} handleSelectedFormat={handleSelectedFormat} />
       <div className={styles.paletteColors}>
         {generateColorBoxes()}
       </div>
       {/* FOOTER */}
-      <div className={styles.footerContainer}>
-        <div className={styles.footerWrapper}>
-          <span className={styles.paletteName}>{palette.paletteName}</span>
-          <span className={styles.emoji}>{palette.emoji}</span>
-        </div>
-      </div>
+      <Footer palette={palette} />
     </div>
   )
 }
