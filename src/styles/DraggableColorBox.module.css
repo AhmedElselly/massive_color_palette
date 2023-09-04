@@ -1,0 +1,10 @@
+.root {
+    display: inline-block;
+    width: 20%;
+    height: 250px;
+    margin: 0 auto;
+    position: relative;
+    cursor: pointer;
+    margin-bottom: -4px;
+}
+

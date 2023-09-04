@@ -21,12 +21,15 @@ import MailIcon from '@mui/icons-material/Mail';
 import { ChromePicker } from 'react-color';
 import { Button } from '@mui/material';
 import styles from '../../styles/CreatePaletteContainer.module.css'
+import DraggableColorBox from '../DraggableColorBox';
 
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
 	({ theme, open }) => ({
 		flexGrow: 1,
+		height: 'calc(100vh - 64px)',
+		// background: 'red',
 		padding: theme.spacing(3),
 		transition: theme.transitions.create('margin', {
 			easing: theme.transitions.easing.sharp,
@@ -91,6 +94,8 @@ export default function PersistentDrawerLeft() {
 		setColors([...colors, color]);
 	}
 
+	const displayColors = () => colors?.map((color, i) => <DraggableColorBox key={i} color={color} />)
+
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
@@ -139,9 +144,11 @@ export default function PersistentDrawerLeft() {
 					<Button variant='contained' onClick={addNewColor} sx={{ background: color, width: '100%', marginInline: 20 }}>add color</Button>
 				</div>
 			</Drawer>
-			<Main open={open}>
+			<Main open={open} className={styles.content}>
 				<DrawerHeader />
-				{JSON.stringify(colors)}
+				<div >
+					{displayColors()}
+				</div>
 			</Main>
 		</Box>
 	);
