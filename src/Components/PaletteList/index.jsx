@@ -18,7 +18,7 @@ const PaletteList = ({ seedColors }) => {
 			<div className={styles.container}>
 				<nav className={styles.nav}>
 					<h1>React Colors</h1>
-					<Link to='/create'>create</Link>
+					<Link to='/palettes/create' className='lightText' style={{textTransform: 'capitalize', textDecoration: 'underline'}}>create palette</Link>
 				</nav>
 				<div className={styles.palettes}>
 					{displayPalettes()}
