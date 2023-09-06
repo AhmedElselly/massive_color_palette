@@ -6,6 +6,7 @@
     overflow: hidden;
     cursor: pointer;
     height: 200px;
+    width: 250px;
 }
 
 .colors {
@@ -32,5 +33,4 @@
     margin: 0 auto;
     position: relative;
     margin-bottom: -3.5px;
-
 }

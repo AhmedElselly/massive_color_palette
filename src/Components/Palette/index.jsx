@@ -4,16 +4,18 @@ import ColorBox from '../ColorBox';
 import Navbar from '../Navbar';
 import { useParams } from 'react-router-dom';
 import { generatePalette } from '../../colorHelpers';
-import seedColors from '../../seedColors';
 import Footer from '../Footer';
+import { useSelector } from 'react-redux';
 
 const Palette = () => {
   const [level, setLevel] = useState(500);
   const [format, setFormat] = useState('hex');
   const { id } = useParams();
+  const seedColors = useSelector(state => state.palettes.value);
   
   const findPalette = id => seedColors.find(palette => palette.id === id);
   const palette = generatePalette(findPalette(id)); 
+  console.log({palette})
 
   const handleSliderChange = val => {
     setLevel(val);
