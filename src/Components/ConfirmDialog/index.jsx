@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
-import { TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 
@@ -15,15 +15,9 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 const ConfirmDialog = ({ open, handleConfirm, setOpen, name, handlePaletteChange }) => {
-	// const [open, setOpen] = useState(false);
 	const [error, setError] = useState(false);
 	const palettes = useSelector(state => state.palettes.value);
 	const [message, setMessage] = useState('');
-	// const [name, setName] = useState('');
-
-	const handleClickOpen = () => {
-		setOpen(true);
-	};
 
 	const handleClose = () => {
 		setOpen(false);
@@ -54,8 +48,9 @@ const ConfirmDialog = ({ open, handleConfirm, setOpen, name, handlePaletteChange
 				onClose={handleClose}
 				aria-describedby="alert-dialog-slide-description"
 			>
-				<DialogTitle>{"Give your palette a name"}</DialogTitle>
+				<DialogTitle>{"Choose a palette name"}</DialogTitle>
 				<DialogContent>
+					<Typography variant='p'>Give a name for your beauteous palette. Make sure it's unique.</Typography>
 					<DialogContentText id="alert-dialog-slide-description">
 						<TextField
 							id="standard-basic"
@@ -66,12 +61,13 @@ const ConfirmDialog = ({ open, handleConfirm, setOpen, name, handlePaletteChange
 							value={name}
 							error={error}
 							helperText={message}
+							fullWidth
 						/>
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>Cancel</Button>
-					<Button onClick={handleSubmit}>Add palette</Button>
+					<Button variant='contained' onClick={handleSubmit}>Add palette</Button>
 				</DialogActions>
 			</Dialog>
 		</div>

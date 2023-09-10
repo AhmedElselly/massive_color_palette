@@ -12,7 +12,8 @@ const SingleColorPalette = () => {
 	const { paletteId, colorId } = useParams();
 	const [level, setLevel] = useState(500);
 	const [format, setFormat] = useState('hex');
-	const seedColors = useSelector(state => state.palettes.value);
+	// const seedColors = useSelector(state => state.palettes.value);
+	const seedColors = JSON.parse(localStorage.getItem('data'))
 
 	const findPalette = id => seedColors.find(palette => palette.id === id);
 	const palette = generatePalette(findPalette(paletteId));

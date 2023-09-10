@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -14,7 +14,7 @@ import { ChromePicker } from 'react-color';
 import { Button, TextField } from '@mui/material';
 import styles from '../../styles/CreatePaletteContainer.module.css'
 import DraggableColorBox from '../DraggableColorBox';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ConfirmDialog from '../ConfirmDialog';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import {
@@ -24,7 +24,8 @@ import {
 	arrayMove,
 	SortableContext,
 } from '@dnd-kit/sortable';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewPalette } from '../../store/paletteSlice';
 
 
 const drawerWidth = 400;
@@ -75,8 +76,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 	justifyContent: 'flex-end',
 }));
 
-const Container = ({ savePalette }) => {
+const Container = () => {
+	const dispatch = useDispatch()
 	const palettes = useSelector(state => state.palettes.value);
+	const navigate = useNavigate();
 	const theme = useTheme();
 	const [open, setOpen] = useState(true);
 	const [activeId, setActiveId] = useState('');
@@ -89,6 +92,10 @@ const Container = ({ savePalette }) => {
 	const [paletteName, setPaletteName] = useState('');
 	const [message, setMessage] = useState('');
 
+	// useEffect(() => {
+	// 	dispatch(loadPalettes(seedColors));
+	// }, []);
+
 	const handleDrawerOpen = () => {
 		setOpen(true);
 	};
@@ -100,14 +107,6 @@ const Container = ({ savePalette }) => {
 	const handleColorChange = newColor => {
 		setColor(newColor.hex);
 	}
-
-	const mouseSensor = useSensor(PointerSensor, {
-    // Require the mouse to move by 10 pixels before activating
-    activationConstraint: {
-      delay: 1000,
-			tolerance: 5,
-    },
-  });
 
 	const addNewColor = (e) => {
 		e.preventDefault()
@@ -143,7 +142,9 @@ const Container = ({ savePalette }) => {
 			id: paletteName.toLowerCase().replace(/ /g, '-'),
 			colors
 		}
-		savePalette(newPalette)
+		// savePalette(newPalette)
+		dispatch(addNewPalette(newPalette));
+		navigate('/');
 	}
 
 	const handleOpenDialog = () => {
@@ -210,6 +211,7 @@ const Container = ({ savePalette }) => {
 		setColors([...colors, newColor]);
 	}
 
+
 	const displayColors = () => colors?.map((color, i) => <DraggableColorBox key={i} id={i} {...color} handleRemove={handleColorRemove} />)
 
 	return (
@@ -229,7 +231,10 @@ const Container = ({ savePalette }) => {
 					<Typography variant="h6" noWrap component={Link} to='/'>
 						reactmassivecolor
 					</Typography>
-					{colors.length ? <Button onClick={handleOpenDialog} variant='contained' sx={{ background: '#3d3d93' }}>save palette</Button> : null}
+					<div className={styles.btnGroup}>
+						<Button onClick={() => navigate('/')} variant='contained' sx={{ background: '#DF1855' }}>go back</Button>
+						{colors.length ? <Button onClick={handleOpenDialog} variant='contained' sx={{ background: '#3d3d93' }}>save palette</Button> : null}
+					</div>
 				</Toolbar>
 			</AppBar>
 			<Drawer
