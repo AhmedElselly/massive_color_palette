@@ -7,11 +7,13 @@ import CreatePalette from './Components/CreatePalette';
 import { useDispatch } from 'react-redux';
 import { loadPalettes } from './store/paletteSlice';
 import Container from './Components/Container';
+import seedColors from './seedColors';
 
 function App() {
   const location = useLocation()
   const dispatch = useDispatch();
-  const colors = JSON.parse(localStorage.getItem('data'));
+  const data = localStorage.getItem('data') ? JSON.parse(localStorage.getItem('data')) : seedColors;
+  const colors = data;
 
   useEffect(() => {
     dispatch(loadPalettes(colors));
