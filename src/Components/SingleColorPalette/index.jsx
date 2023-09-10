@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { generatePalette } from '../../colorHelpers';
 import ColorBox from '../ColorBox';
 import styles from '../../styles/SingleColorPalette.module.css';
@@ -9,10 +9,10 @@ import { useSelector } from 'react-redux';
 
 
 const SingleColorPalette = () => {
+	const navigate = useNavigate();
 	const { paletteId, colorId } = useParams();
 	const [level, setLevel] = useState(500);
 	const [format, setFormat] = useState('hex');
-	// const seedColors = useSelector(state => state.palettes.value);
 	const seedColors = JSON.parse(localStorage.getItem('data'))
 
 	const findPalette = id => seedColors.find(palette => palette.id === id);
@@ -49,10 +49,10 @@ const SingleColorPalette = () => {
 			<div className={styles.paletteColors}>
 				{displayShades()}
 				{/* Go Back Button */}
-				<div className={styles.goBack}>
-					<Link to={`/palettes/${paletteId}`} className={styles.goBackBtn}>
+				<div className={styles.goBack} onClick={() => navigate(-1)}>
+					<div to={`/palettes/${paletteId}`} className={styles.goBackBtn}>
 						Go Back
-					</Link>
+					</div>
 				</div>
 			</div>
 			{/* Footer */}

@@ -15,7 +15,6 @@ export const paletteSlice = createSlice({
   reducers: {
     loadPalettes: (state, action) => {
       const newArray = [...action.payload];
-      // localStorage.setItem('data', JSON.stringify(newArray));
       state.value = newArray;
     },
     addNewPalette: (state, action) => {
