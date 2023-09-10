@@ -80,6 +80,7 @@ const Container = () => {
 	const dispatch = useDispatch()
 	const palettes = useSelector(state => state.palettes.value);
 	const navigate = useNavigate();
+	const maxColors = 19;
 	const theme = useTheme();
 	const [open, setOpen] = useState(true);
 	const [activeId, setActiveId] = useState('');
@@ -260,7 +261,8 @@ const Container = () => {
 					<Typography variant='h5' sx={{ mt: 2 }}>Design your palette</Typography>
 					<div className={styles.btnGroup}>
 						<Button variant='contained' onClick={handleClearColors} sx={{ background: '#f50057' }}>clear palette</Button>
-						<Button variant='contained' onClick={handleRandomColors} sx={{ background: '#673ab7' }}>random color</Button>
+						
+						{colors.length <= maxColors ? <Button variant='contained' onClick={handleRandomColors} sx={{ background: '#673ab7' }}>random color</Button> : <Button variant='contained' disabled sx={{ background: '#673ab7' }}>random color</Button>}
 					</div>
 					<ChromePicker color={color} onChange={val => setColor(val)} onChangeComplete={handleColorChange} />
 					<form
