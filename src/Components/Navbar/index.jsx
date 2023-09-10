@@ -53,7 +53,7 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat, showLevel }) =
 					>
 						<MenuItem value={'hex'}>HEX - #ffffff</MenuItem>
 						<MenuItem value={'rgb'}>RGB - {`rgb(255,255,255)`}</MenuItem>
-						<MenuItem value={'rgba'}>RGBA - {`rgb(255,255,255,1)`}</MenuItem>
+						<MenuItem value={'rgba'}>RGBA - {`rgba(255,255,255,1)`}</MenuItem>
 					</Select>
 				</FormControl>
 			</div>
