@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation, useOutlet } from 'react-router-dom'
-import { CSSTransition, SwitchTransition, TransitionGroup } from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import '../../Animation.css'
 
 const Container = ({ children }) => {
