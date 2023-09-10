@@ -1,14 +1,12 @@
 import { Fragment, useEffect } from 'react'
 import Palette from './Components/Palette'
-import seedColors from './seedColors';
-import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import PaletteList from './Components/PaletteList';
 import SingleColorPalette from './Components/SingleColorPalette';
 import CreatePalette from './Components/CreatePalette';
-import { useDispatch, useSelector } from 'react-redux';
-import { addNewPalette, loadPalettes } from './store/paletteSlice';
+import { useDispatch } from 'react-redux';
+import { loadPalettes } from './store/paletteSlice';
 import Container from './Components/Container';
-import { AnimatePresence } from 'framer-motion';
 
 function App() {
   const location = useLocation()
