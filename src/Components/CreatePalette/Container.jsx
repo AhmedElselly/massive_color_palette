@@ -211,7 +211,6 @@ const Container = () => {
 			name: allColors[randIdx].name,
 			color: allColors[randIdx].color
 		};
-		console.log(colorExists(newColor.color));
 		if (colorExists(newColor.color)) {
 			setErrorColorExists(true);
 		} else {
@@ -221,9 +220,7 @@ const Container = () => {
 	}
 
 	const colorExists = (col) => {
-		// console.log({col})
 		const foundColor = colors?.find(item => item.color === col);
-		console.log({ foundColor })
 		if (foundColor) {
 			return true;
 		}
