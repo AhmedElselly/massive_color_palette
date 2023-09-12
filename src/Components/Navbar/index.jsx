@@ -4,17 +4,18 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { FormControl, MenuItem, Select, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AlertDialog from '../AlertDialog';
-
-const Alert = forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import TemporaryDrawer from '../Drawer';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Navbar = ({ level, handleChangeLevel, handleSelectedFormat, showLevel }) => {
+	const navigate = useNavigate()
 	const [newLevel, setNewLevel] = useState(level);
 	const [selected, setSelected] = useState('hex');
 	const [open, setOpen] = useState(false);
+	const [drawerOpen, setDrawerOpen] = useState(false);
 
 	const handleSliderChange = val => {
 		setNewLevel(val)
@@ -28,15 +29,22 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat, showLevel }) =
 	}
 
 	const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpen(false);
+		setDrawerOpen(false);
+	};
 
-    setOpen(false);
-  };
+	const handleDrawerOpen = e => {
+		setDrawerOpen(true)
+	}
 
 	return (
 		<div className={styles.container}>
+			<div className={styles.humburger} onClick={handleDrawerOpen}>
+				<MenuOpenIcon sx={{ fontSize: 32 }} />
+			</div>
 			<div className={styles.left}>
 				<Link to='/' className={styles.logo}>reactcolorpicker</Link>
 				{showLevel && <div className={styles.slider}>
@@ -58,12 +66,27 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat, showLevel }) =
 					</Select>
 				</FormControl>
 			</div>
-			<AlertDialog 
+			<div className={styles.backButton} onClick={() => navigate(-1)}>
+				<ArrowBackIcon />
+			</div>
+			<AlertDialog
 				open={open}
 				handleClose={handleClose}
 				message='Format changed'
 				type='success'
 			/>
+			<div className={styles.drawerContainer}>
+				<TemporaryDrawer
+					open={drawerOpen}
+					selected={selected}
+					handleClose={handleClose}
+					level={level}
+					showLevel={showLevel}
+					newLevel={newLevel}
+					handleSliderChange={handleSliderChange}
+					handleSelectChange={handleSelectChange}
+				/>
+			</div>
 		</div>
 	)
 }

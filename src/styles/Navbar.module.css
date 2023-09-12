@@ -1,33 +1,100 @@
 .container {
-    display: flex;
-    justify-content: space-between;
-    height: 50px;
+	display: flex;
+	justify-content: space-between;
+	height: 50px;
+	z-index: 1000;
+}
+
+.drawerContainer {
+	display: none;
+}
+
+.humburger {
+	display: none;
 }
 
 .left {
-    display: flex;
-    align-items: center;
-    width: 500px;
+	display: flex;
+	align-items: center;
+	width: 500px;
 }
 
 .logo {
-    background-color: rgba(0, 0, 0, 0.2);
-    height: 100%;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-transform: uppercase;
-    color: #fff;
-    cursor: pointer;
-    text-decoration: none;
+	background-color: rgba(0, 0, 0, 0.2);
+	height: 100%;
+	width: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: uppercase;
+	color: #fff;
+	cursor: pointer;
+	text-decoration: none;
 }
 
 .slider {
-    width: 300px;
-    margin: 0 10px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
+	width: 300px;
+	margin: 0 10px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
 }
 
+.backButton {
+	display: none;
+}
+
+@media screen and (max-width: 817px) {
+
+	.left,
+	.logo,
+	.slider,
+	.right {
+		display: none;
+	}
+
+	.leftSmallScreen {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+
+	.sliderSmallScreen {
+		padding-bottom: 30px;
+		width: 90%;
+		margin-inline: auto;
+	}
+
+	.rightSmallScreen {
+		display: block;
+		width: 100%;
+	}
+
+	.logoSmallScreen {
+		height: 50px;
+		background-color: rgba(0, 0, 0, 0.2);
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-transform: uppercase;
+		color: #fff;
+		cursor: pointer;
+		text-decoration: none;
+		margin-bottom: 20px;
+	}
+
+	.humburger {
+		display: flex;
+		width: 50px;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.backButton {
+		display: flex;
+		align-items: center;
+		margin-right: 20px;
+		z-index: 10000;
+	}
+}

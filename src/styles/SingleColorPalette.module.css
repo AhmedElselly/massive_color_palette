@@ -39,3 +39,17 @@
     transition: 0.3s all ease-in;
     cursor: pointer;
 }
+
+@media screen and (max-width: 817px) {
+    .palette {
+        overflow-y: auto;
+    }
+    .colorBox {
+        overflow: auto;
+    }
+
+    .goBack {
+        width: 100%;
+        overflow-x: hidden;
+    }
+}

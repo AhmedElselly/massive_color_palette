@@ -83,7 +83,7 @@ const Container = () => {
 	const navigate = useNavigate();
 	const maxColors = 19;
 	const theme = useTheme();
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const [errorColorExists, setErrorColorExists] = useState(false);
 	const [activeId, setActiveId] = useState('');
 	const [openDialog, setOpenDialog] = useState(false);
@@ -248,8 +248,18 @@ const Container = () => {
 						reactmassivecolor
 					</Typography>
 					<div className={styles.btnGroup}>
-						<Button onClick={() => navigate('/')} variant='contained' sx={{ background: '#DF1855' }}>go back</Button>
-						{colors.length ? <Button onClick={handleOpenDialog} variant='contained' sx={{ background: '#3d3d93' }}>save palette</Button> : null}
+						<Button onClick={() => navigate('/')} variant='contained' sx={{
+							background: '#DF1855',
+							'@media screen and (max-width: 817px)': {
+								height: 50,
+							}
+						}}>go back</Button>
+						{colors.length ? <Button onClick={handleOpenDialog} variant='contained' sx={{
+							background: '#3d3d93',
+							'@media screen and (max-width: 817px)': {
+								height: 50,
+							}
+						}}>save palette</Button> : null}
 					</div>
 				</Toolbar>
 			</AppBar>
@@ -260,11 +270,18 @@ const Container = () => {
 					'& .MuiDrawer-paper': {
 						width: drawerWidth,
 						boxSizing: 'border-box',
+						'@media screen and (max-width: 817px)': {
+							width: 350,
+						}
 					},
+					'@media screen and (min-width: 817px)': {
+						width: 350,
+					}
 				}}
 				variant="persistent"
 				anchor="left"
 				open={open}
+				className={styles.drawer}
 			>
 				<DrawerHeader>
 					<IconButton onClick={handleDrawerClose}>
@@ -305,13 +322,25 @@ const Container = () => {
 					</form>
 				</div>
 			</Drawer>
-			<Main open={open} className={styles.content}>
+			<Main open={open} sx={{
+				p: colors.length ? 0 : 4
+			}} className={styles.content}>
 				<DrawerHeader />
-				<DndContext autoScroll={false} sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+				{colors.length ? <DndContext autoScroll={false} sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
 					<SortableContext items={colors}>
 						{displayColors()}
 					</SortableContext>
-				</DndContext>
+				</DndContext> : (
+					<div style={{
+						display: 'flex',
+						flexDirection: 'column',
+						mt: 5,
+						textAlign: 'center'
+					}}>
+						<Typography variant='h4'>Create the color palette you like!</Typography>
+						<Button onClick={() => setOpen(!open)} fullWidth variant='contained' sx={{ background: color, width: '100%', marginInline: 'auto', mt: 5 }}>create color</Button>
+					</div>
+				)}
 			</Main>
 			<ConfirmDialog open={openDialog} handleConfirm={handleConfirmName} setOpen={setOpenDialog} name={paletteName} handlePaletteChange={handlePaletteNameChange} />
 			<AlertDialog

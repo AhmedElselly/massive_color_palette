@@ -6,3 +6,11 @@
 .paletteColors {
     height: 90%;
 }
+
+
+@media screen and (max-width: 817px) {
+    .paletteColors {
+        display: flex;
+        flex-direction: column;
+    }
+}
