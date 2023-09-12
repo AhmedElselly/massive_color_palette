@@ -27,6 +27,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewPalette } from '../../store/paletteSlice';
 import AlertDialog from '../AlertDialog';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 
 const drawerWidth = 400;
@@ -248,12 +250,15 @@ const Container = () => {
 						reactmassivecolor
 					</Typography>
 					<div className={styles.btnGroup}>
-						<Button onClick={() => navigate('/')} variant='contained' sx={{
+						{/* <Button onClick={() => navigate('/')} variant='contained' sx={{
 							background: '#DF1855',
 							'@media screen and (max-width: 817px)': {
 								height: 50,
 							}
-						}}>go back</Button>
+						}}>go back</Button> */}
+						<div className={styles.backButton} style={{cursor: 'pointer'}} onClick={() => navigate(-1)}>
+							<ArrowBackIcon />
+						</div>
 						{colors.length ? <Button onClick={handleOpenDialog} variant='contained' sx={{
 							background: '#3d3d93',
 							'@media screen and (max-width: 817px)': {
@@ -338,7 +343,7 @@ const Container = () => {
 						textAlign: 'center'
 					}}>
 						<Typography variant='h4'>Create the color palette you like!</Typography>
-						<Button onClick={() => setOpen(!open)} fullWidth variant='contained' sx={{ background: color, width: '100%', marginInline: 'auto', mt: 5 }}>create color</Button>
+						<Button onClick={() => setOpen(!open)} variant='contained' sx={{ background: color, width: 200, marginInline: 'auto', mt: 5 }}>create color</Button>
 					</div>
 				)}
 			</Main>
