@@ -321,7 +321,7 @@ const Container = () => {
 				open={errorColorExists}
 				handleClose={handleAlertClose}
 				message='Color randomly picked already exists'
-				type='success'
+				type='error'
 			/>
 		</Box>
 	);
