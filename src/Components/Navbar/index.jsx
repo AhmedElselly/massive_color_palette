@@ -5,6 +5,7 @@ import 'rc-slider/assets/index.css';
 import { FormControl, MenuItem, Select, Snackbar } from '@mui/material';
 import MuiAlert from '@mui/material/Alert';
 import { Link } from 'react-router-dom';
+import AlertDialog from '../AlertDialog';
 
 const Alert = forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -57,11 +58,12 @@ const Navbar = ({ level, handleChangeLevel, handleSelectedFormat, showLevel }) =
 					</Select>
 				</FormControl>
 			</div>
-			<Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          Format changed
-        </Alert>
-      </Snackbar>
+			<AlertDialog 
+				open={open}
+				handleClose={handleClose}
+				message='Format changed'
+				type='success'
+			/>
 		</div>
 	)
 }

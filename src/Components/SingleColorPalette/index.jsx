@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { generatePalette } from '../../colorHelpers';
 import ColorBox from '../ColorBox';
 import styles from '../../styles/SingleColorPalette.module.css';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
-import { useSelector } from 'react-redux';
 
 
 const SingleColorPalette = () => {

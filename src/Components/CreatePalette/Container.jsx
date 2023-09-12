@@ -18,7 +18,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ConfirmDialog from '../ConfirmDialog';
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import {
-	DndContext, MouseSensor, PointerSensor, useSensor, useSensors,
+	DndContext, PointerSensor, useSensor, useSensors,
 } from '@dnd-kit/core';
 import {
 	arrayMove,
@@ -26,6 +26,7 @@ import {
 } from '@dnd-kit/sortable';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewPalette } from '../../store/paletteSlice';
+import AlertDialog from '../AlertDialog';
 
 
 const drawerWidth = 400;
@@ -83,6 +84,7 @@ const Container = () => {
 	const maxColors = 19;
 	const theme = useTheme();
 	const [open, setOpen] = useState(true);
+	const [errorColorExists, setErrorColorExists] = useState(false);
 	const [activeId, setActiveId] = useState('');
 	const [openDialog, setOpenDialog] = useState(false);
 	const [color, setColor] = useState('#3D3D93');
@@ -92,10 +94,6 @@ const Container = () => {
 	const [name, setName] = useState('');
 	const [paletteName, setPaletteName] = useState('');
 	const [message, setMessage] = useState('');
-
-	// useEffect(() => {
-	// 	dispatch(loadPalettes(seedColors));
-	// }, []);
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -127,6 +125,10 @@ const Container = () => {
 			setName('')
 			setAddedNew(true);
 		}
+	}
+
+	const handleAlertClose = () => {
+		setErrorColorExists(false);
 	}
 
 	const handleNameChange = e => {
@@ -203,13 +205,29 @@ const Container = () => {
 
 	const handleRandomColors = () => {
 		const allColors = palettes.map(p => p.colors).flat();
-		const randIdx = Math.floor(Math.random() * allColors.length - 1);
+		let randIdx = Math.floor(Math.random() * allColors.length - 1);
 		const newColor = allColors[randIdx] = {
 			id: allColors[randIdx].name.toLowerCase().replace(/ /g, '-'),
 			name: allColors[randIdx].name,
 			color: allColors[randIdx].color
 		};
-		setColors([...colors, newColor]);
+		console.log(colorExists(newColor.color));
+		if (colorExists(newColor.color)) {
+			setErrorColorExists(true);
+		} else {
+			setColors([...colors, newColor]);
+		}
+
+	}
+
+	const colorExists = (col) => {
+		// console.log({col})
+		const foundColor = colors?.find(item => item.color === col);
+		console.log({ foundColor })
+		if (foundColor) {
+			return true;
+		}
+		return false;
 	}
 
 
@@ -261,7 +279,7 @@ const Container = () => {
 					<Typography variant='h5' sx={{ mt: 2 }}>Design your palette</Typography>
 					<div className={styles.btnGroup}>
 						<Button variant='contained' onClick={handleClearColors} sx={{ background: '#f50057' }}>clear palette</Button>
-						
+
 						{colors.length <= maxColors ? <Button variant='contained' onClick={handleRandomColors} sx={{ background: '#673ab7' }}>random color</Button> : <Button variant='contained' disabled sx={{ background: '#673ab7' }}>random color</Button>}
 					</div>
 					<ChromePicker color={color} onChange={val => setColor(val)} onChangeComplete={handleColorChange} />
@@ -299,6 +317,12 @@ const Container = () => {
 				</DndContext>
 			</Main>
 			<ConfirmDialog open={openDialog} handleConfirm={handleConfirmName} setOpen={setOpenDialog} name={paletteName} handlePaletteChange={handlePaletteNameChange} />
+			<AlertDialog
+				open={errorColorExists}
+				handleClose={handleAlertClose}
+				message='Color randomly picked already exists'
+				type='success'
+			/>
 		</Box>
 	);
 }
