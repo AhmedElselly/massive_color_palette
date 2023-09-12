@@ -24,6 +24,7 @@
     color: #000;
     position: relative;
     margin-top: 10px;
+    text-transform: capitalize;
 }
 
 .miniColor {

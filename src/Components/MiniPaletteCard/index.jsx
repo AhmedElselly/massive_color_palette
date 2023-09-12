@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch, useSelector } from 'react-redux';
 import { removePalette } from '../../store/paletteSlice';
 
-const MiniPalette = ({paletteName, emoji, colors, id}) => {
+const MiniPaletteCard = ({paletteName, emoji, colors, id}) => {
 	const palettes = useSelector(state => state.palettes.value);
 	const dispatch = useDispatch();
 	const displayColors = () => {
@@ -32,4 +32,4 @@ const MiniPalette = ({paletteName, emoji, colors, id}) => {
 	)
 }
 
-export default MiniPalette;
+export default MiniPaletteCard;

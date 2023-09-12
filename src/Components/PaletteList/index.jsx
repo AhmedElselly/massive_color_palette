@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import MiniPalette from '../MiniPalette';
+import MiniPaletteCard from '../MiniPaletteCard';
 import styles from '../../styles/PaletteList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadPalettes } from '../../store/paletteSlice';
@@ -13,7 +13,7 @@ const PaletteList = () => {
 		return palettes?.map(palette => {
 			return (
 				<Link key={palette.id} to={`/palettes/${palette.id}`} onClick={e => e.stopPropagation()}>
-					<MiniPalette {...palette} />
+					<MiniPaletteCard {...palette} />
 				</Link>
 			)
 		})
