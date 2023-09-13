@@ -29,8 +29,6 @@ import { addNewPalette } from '../../store/paletteSlice';
 import AlertDialog from '../AlertDialog';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-
-
 const drawerWidth = 400;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -113,7 +111,7 @@ const Container = () => {
 		e.preventDefault()
 		const foundColor = colors.find(item => item.name === name);
 		if (foundColor) {
-			setMessage('name should be unique')
+			setMessage('Name should be unique')
 			setError(true);
 			return;
 		} else {
@@ -147,7 +145,6 @@ const Container = () => {
 			id: paletteName.toLowerCase().replace(/ /g, '-'),
 			colors
 		}
-		// savePalette(newPalette)
 		dispatch(addNewPalette(newPalette));
 		navigate('/');
 	}
@@ -166,16 +163,13 @@ const Container = () => {
 
 	const sensors = useSensors(
 		useSensor(PointerSensor, {
-			// Require the mouse to move by 10 pixels before activating
 			activationConstraint: {
 				delay: 100,
 			},
 		}))
 
 	const handleColorRemove = (name) => {
-		console.log(name)
 		const newArr = colors.filter(color => color.name !== name);
-
 		setColors(newArr)
 	}
 	const handleDragStart = event => {
@@ -185,7 +179,6 @@ const Container = () => {
 
 	const handleDragEnd = (e) => {
 		const { active, over } = e;
-		// console.log(e)
 		if (active !== null && over !== null && active.id !== over.id) {
 			setColors((items) => {
 				const oldIndex = findIndexOf(items, active.id);
@@ -250,12 +243,6 @@ const Container = () => {
 						reactmassivecolor
 					</Typography>
 					<div className={styles.btnGroup}>
-						{/* <Button onClick={() => navigate('/')} variant='contained' sx={{
-							background: '#DF1855',
-							'@media screen and (max-width: 817px)': {
-								height: 50,
-							}
-						}}>go back</Button> */}
 						<div className={styles.backButton} style={{cursor: 'pointer'}} onClick={() => navigate(-1)}>
 							<ArrowBackIcon />
 						</div>
