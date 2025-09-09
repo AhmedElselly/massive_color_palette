@@ -1,63 +1,82 @@
-import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import { generatePalette } from '../../colorHelpers';
-import ColorBox from '../ColorBox';
-import styles from '../../styles/SingleColorPalette.module.css';
-import Navbar from '../Navbar';
-import Footer from '../Footer';
-
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { generatePalette } from "../../colorHelpers";
+import ColorBox from "../ColorBox";
+import styles from "../../styles/SingleColorPalette.module.css";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
+import { useSelector } from "react-redux";
 
 const SingleColorPalette = () => {
-	const navigate = useNavigate();
-	const { paletteId, colorId } = useParams();
-	const [level, setLevel] = useState(500);
-	const [format, setFormat] = useState('hex');
-	const seedColors = JSON.parse(localStorage.getItem('data'))
+  const navigate = useNavigate();
+  const { paletteId, colorId } = useParams();
+  const [level, setLevel] = useState(500);
+  const [format, setFormat] = useState("hex");
+  //   const seedColors = JSON.parse(localStorage.getItem("data"));
+  const seedColors = useSelector((state) => state.palettes.value);
 
-	const findPalette = id => seedColors.find(palette => palette.id === id);
-	const palette = generatePalette(findPalette(paletteId));
-	const gatherShades = (palette, colorToFilterBy) => {
-		let newShades = [];
-		let { colors } = palette;
-		for (let key in colors) {
-			newShades = newShades.concat(colors[key].filter(color => color.id === colorToFilterBy));
-		}
-		return newShades.slice(1);
-	}
+  const findPalette = (id) => seedColors?.find((palette) => palette.id === id);
+  const palette = generatePalette(findPalette(paletteId));
 
-	const [shades, setShades] = useState(gatherShades(palette, colorId));
+  const gatherShades = (palette, colorToFilterBy) => {
+    let newShades = [];
+    let colors = palette.colors;
+    for (let key in colors) {
+      newShades = newShades.concat(
+        colors[key].filter((color) => color.id === colorToFilterBy)
+      );
+    }
+    return newShades.slice(1);
+  };
 
-	const handleSliderChange = val => {
-		setLevel(val);
-	}
+  const [shades, setShades] = useState(gatherShades(palette, colorId));
 
-	const handleSelectedFormat = val => {
-		setFormat(val);
-	}
+  const handleSliderChange = (val) => {
+    setLevel(val);
+  };
 
-	const displayShades = () => {
-		return shades?.map((color, i) => {
-			return <ColorBox key={i} fullHeight={true} background={color[format]} name={color.name} paletteId={paletteId} colorId={colorId} showMore={false} />
-		})
-	}
+  const handleSelectedFormat = (val) => {
+    setFormat(val);
+  };
 
-	return (
-		<div className={styles.palette}>
-			<Navbar showLevel={false} level={level} handleChangeLevel={handleSliderChange} handleSelectedFormat={handleSelectedFormat} />
-			<h4 style={{ padding: 20 }}>Single color palette shades</h4>
-			<div className={styles.paletteColors}>
-				{displayShades()}
-				{/* Go Back Button */}
-				<div className={styles.goBack} onClick={() => navigate(-1)}>
-					<div to={`/palettes/${paletteId}`} className={styles.goBackBtn}>
-						Go Back
-					</div>
-				</div>
-			</div>
-			{/* Footer */}
-			<Footer palette={palette} />
-		</div>
-	)
-}
+  const displayShades = () => {
+    return shades?.map((color, i) => {
+      return (
+        <ColorBox
+          key={i}
+          fullHeight={true}
+          background={color[format]}
+          name={color.name}
+          paletteId={paletteId}
+          colorId={colorId}
+          showMore={false}
+        />
+      );
+    });
+  };
 
-export default SingleColorPalette
+  return (
+    <div className={styles.palette}>
+      <Navbar
+        showLevel={false}
+        level={level}
+        handleChangeLevel={handleSliderChange}
+        handleSelectedFormat={handleSelectedFormat}
+      />
+      <h4 style={{ padding: 20 }}>Single color palette shades</h4>
+      <div className={styles.paletteColors}>
+        {displayShades()}
+        {/* Go Back Button */}
+        <div className={styles.goBack} onClick={() => navigate(-1)}>
+          <div to={`/palettes/${paletteId}`} className={styles.goBackBtn}>
+            Go Back
+          </div>
+        </div>
+      </div>
+      {/* Footer */}
+      <Footer palette={palette} />
+    </div>
+  );
+};
+
+export default SingleColorPalette;
