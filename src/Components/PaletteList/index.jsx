@@ -28,7 +28,7 @@ const PaletteList = () => {
     <div className={styles.root}>
       <div className={styles.container}>
         <nav className={styles.nav}>
-          <h1>React Colors</h1>
+          <h1>Charisma Colors</h1>
           <Link
             to="/palettes/create"
             className="lightText"
